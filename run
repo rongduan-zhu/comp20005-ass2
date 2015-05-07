@@ -1,0 +1,4 @@
+#!/bin/sh
+
+make
+./main.exe test0.csv
