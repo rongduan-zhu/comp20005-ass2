@@ -51,6 +51,9 @@ typedef struct {
     int argvals[MAXARGS];
 } command_t;
 
+double _get_by_func(csv_t *csv, int column_number, double (*get)(double , double));
+double double_max(double a, double b);
+double double_min(double a, double b);
 double _average_csv_t(csv_t *csv, int column_number);
 void _print_average_csv_t(csv_t *csv, int column_number, double average);
 
