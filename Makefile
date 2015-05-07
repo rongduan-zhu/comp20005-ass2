@@ -2,7 +2,14 @@ CC=gcc
 CFLAGS=-Wall -ansi -c
 LINKERS=-lm
 
-all: main
+all: executable
+
+executable: main helper
+	$(CC) main.o helper.o -o main.exe $(LINKERS)
 
 main:
-		$(CC) main.c -o main.exe $(LINKERS)
+	$(CC) $(CFLAGS) main.c
+
+helper:
+	$(CC) $(CFLAGS) helper.c
+
