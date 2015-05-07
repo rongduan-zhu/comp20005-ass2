@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -ansi -c
+CFLAGS=-Wall -c
 LINKERS=-lm
 
 all: executable

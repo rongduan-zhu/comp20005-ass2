@@ -376,7 +376,10 @@ do_averge(csv_t *D, int col) {
 */
 void
 do_graph1(csv_t *D, int col) {
-    return;
+    bucket_t bucket;
+    _init_bucket_t(D, &bucket, col);
+    _populate_bucket(D, &bucket, col);
+    _print_bucket_graph(D, &bucket, col);
 }
 
 /****************************************************************/
