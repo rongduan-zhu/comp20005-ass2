@@ -90,9 +90,9 @@ void _print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number) {
 
 void _init_category_t(csv_t *csv, category_t *categories,
         int category_column) {
-    categories->number_of_categories = 0;
     int category_index = category_column - 1;
     int i;
+    categories->number_of_categories = 0;
 
     /* inserts all category into array */
     for (i = 0; i < csv->nrows; ++i) {
@@ -157,7 +157,7 @@ void _print_category_average(csv_t *csv, category_t *categories,
     string category_label = csv->labs[category_column - 1];
     string value_label = csv->labs[value_column - 1];
 
-    printf("%10s   %s %s\n", category_label, "average", value_label);
+    printf("%10s %9s %s\n", category_label, "average", value_label);
 
     for (i = 0; i < categories->number_of_categories; ++i) {
         printf("%10.2f %10.2f (over %d values)\n",
