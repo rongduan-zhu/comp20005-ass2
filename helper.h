@@ -57,6 +57,13 @@ typedef struct {
     double step;
 } bucket_t;
 
+typedef struct {
+    int number_of_categories;
+    double categories[MAXCATS];
+    int count[MAXCATS];
+    double sum[MAXCATS];
+} category_t;
+
 double _get_by_func(csv_t *csv, int column_number, double (*get)(double , double));
 double double_max(double a, double b);
 double double_min(double a, double b);
@@ -66,5 +73,13 @@ void _init_bucket_t(csv_t *csv, bucket_t *bucket, int column_number);
 int _calculate_bucket_index(double value, double min, double step);
 void _populate_bucket(csv_t *csv, bucket_t *bucket, int column_number);
 void _print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number);
+void _init_category_t(csv_t *csv, category_t *categories, int category_column);
+int double_compare(const void *a, const void *b);
+void _insert_category_category_t(category_t *categories, double category);
+int _category_index_category_t(category_t *categories, double category);
+void _sum_categories_category_t(csv_t *csv, category_t *categories,
+        int category_column, int value_column);
+void _print_category_average(csv_t *csv, category_t *categories,
+        int category_column, int value_column);
 
 #endif

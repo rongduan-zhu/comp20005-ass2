@@ -388,7 +388,10 @@ do_graph1(csv_t *D, int col) {
 */
 void
 do_catavg(csv_t *D, int cat, int col) {
-    return;
+    category_t categories;
+    _init_category_t(D, &categories, cat);
+    _sum_categories_category_t(D, &categories, cat, col);
+    _print_category_average(D, &categories, cat, col);
 }
 
 /****************************************************************/
