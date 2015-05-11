@@ -165,3 +165,38 @@ void _print_category_average(csv_t *csv, category_t *categories,
             categories->sum[i] / categories->count[i], categories->count[i]);
     }
 }
+
+double _calculate_taua_correlation(csv_t *csv,
+        int column_number_1, int column_number_2) {
+    int column_index_1 = column_number_1 - 1;
+    int column_index_2 = column_number_2 - 1;
+    int i, j;
+    int concordant_count = 0;
+    int discordant_count = 0;
+    double diff1, diff2;
+
+    for (i = 0; i < csv->nrows; ++i) {
+        for (j = i + 1; j < csv->nrows; ++j) {
+            diff1 = csv->vals[i][column_index_1] - csv->vals[j][column_index_1];
+            diff2 = csv->vals[i][column_index_2] - csv->vals[j][column_index_2];
+
+            if ((diff1 < 0 && diff2 < 0) || (diff1 > 0 && diff2 > 0)) {
+                ++concordant_count;
+            } else if ((diff1 > 0 && diff2 < 0) || (diff1 < 0 && diff2 > 0)) {
+                ++discordant_count;
+            }
+        }
+    }
+
+    return 2.0 * (concordant_count - discordant_count)
+        / (csv->nrows * (csv->nrows - 1.0));
+}
+
+void _print_taua_correlation(csv_t *csv, int column_number_1,
+        int column_number_2, double taua_correlation) {
+    string label_1 = csv->labs[column_number_1 - 1];
+    string label_2 = csv->labs[column_number_2 - 1];
+
+    printf("tau coefficient between %s and %s = %3.2f\n",
+        label_1, label_2, taua_correlation);
+}

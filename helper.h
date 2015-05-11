@@ -81,5 +81,9 @@ void _sum_categories_category_t(csv_t *csv, category_t *categories,
         int category_column, int value_column);
 void _print_category_average(csv_t *csv, category_t *categories,
         int category_column, int value_column);
+double _calculate_taua_correlation(csv_t *csv,
+        int column_number_1, int column_number_2);
+void _print_taua_correlation(csv_t *csv, int column_number_1,
+        int column_number_2, double taua_correlation);
 
 #endif

@@ -401,7 +401,8 @@ do_catavg(csv_t *D, int cat, int col) {
 */
 void
 do_kndall(csv_t *D, int col1, int col2) {
-    return;
+    double taua_coefficient = _calculate_taua_correlation(D, col1, col2);
+    _print_taua_correlation(D, col1, col2, taua_coefficient);
 }
 
 /****************************************************************/
