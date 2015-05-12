@@ -53,6 +53,7 @@ typedef struct {
 
 typedef struct {
     int buckets[GRAPHROWS];
+    int max_bucket;
     double start;
     double step;
 } bucket_t;
@@ -67,6 +68,7 @@ typedef struct {
 double _get_by_func(csv_t *csv, int column_number, double (*get)(double , double));
 double double_max(double a, double b);
 double double_min(double a, double b);
+int int_max(int a, int b);
 double _average_csv_t(csv_t *csv, int column_number);
 void _print_average_csv_t(csv_t *csv, int column_number, double average);
 void _init_bucket_t(csv_t *csv, bucket_t *bucket, int column_number);

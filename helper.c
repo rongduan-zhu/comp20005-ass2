@@ -24,6 +24,10 @@ double double_min(double a, double b) {
     return a > b ? b : a;
 }
 
+int int_max(int a, int b) {
+    return a > b ? a : b;
+}
+
 double _average_csv_t(csv_t *csv, int column_number) {
     double sum = 0.0;
     int i;
@@ -49,6 +53,7 @@ void _init_bucket_t(csv_t *csv, bucket_t *bucket, int column_number) {
 
     bucket->start = min - EPSILON;
     bucket->step = step;
+    bucket->max_bucket = 0;
 
     for (i = 0; i < GRAPHROWS; ++i) {
         bucket->buckets[i] = 0;
@@ -68,20 +73,30 @@ void _populate_bucket(csv_t *csv, bucket_t *bucket, int column_number) {
         bucket_index = _calculate_bucket_index(csv->vals[i][column_index],
             bucket->start, bucket->step);
         ++(bucket->buckets[bucket_index]);
+        bucket->max_bucket = int_max(bucket->max_bucket, bucket->buckets[bucket_index]);
     }
 }
 
 void _print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number) {
     int i, j;
-    int scale = 1;
+    int scale;
     string header = csv->labs[column_number - 1];
+
+    /* Second part of the addition deals with inexact division. For example
+       when 60 / 60, it equals to 1, the second part of the equation will evaluate
+       to 0, which gives a scale of 1 and its the desired scaling. But say when
+       its 60 + x, where 0 < x < 60, then we do want to scale up. This time the
+       second part of the addition equates to 1. So the scale will be 1 + 1 which
+       is 2, the desired scale. */
+    scale = bucket->max_bucket / GRAPHCOLS +
+        (bucket->max_bucket % GRAPHCOLS ? 1 : 0);
 
     printf("graph of %s, scaled by a factor of %d\n", header, scale);
     for (i = GRAPHROWS - 1; i >= 0; --i) {
         printf("%6.2f--%6.2f [%3d]:", bucket->start + i * bucket->step,
             bucket->start + (i + 1) * bucket->step, bucket->buckets[i]);
 
-        for (j = 0; j < bucket->buckets[i]; ++j) {
+        for (j = 0; j < bucket->buckets[i] / scale; ++j) {
             printf("*");
         }
         printf("\n");
