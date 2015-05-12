@@ -47,7 +47,7 @@ void _init_bucket_t(csv_t *csv, bucket_t *bucket, int column_number) {
     double max = _get_by_func(csv, column_number, double_max);
     double step = (max + EPSILON - (min - EPSILON)) / GRAPHROWS;
 
-    bucket->start = min;
+    bucket->start = min - EPSILON;
     bucket->step = step;
 
     for (i = 0; i < GRAPHROWS; ++i) {
