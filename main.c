@@ -412,5 +412,8 @@ do_kndall(csv_t *D, int col1, int col2) {
 */
 void
 do_graph2(csv_t *D, int col1, int col2) {
-    return;
+    bucket_2d_t bucket;
+    _init_bucket_2d_t(D, &bucket, col1, col2);
+    _populate_bucket_2d(D, &bucket, col1, col2);
+    _print_bucket_2d_graph(D, &bucket, col1, col2);
 }

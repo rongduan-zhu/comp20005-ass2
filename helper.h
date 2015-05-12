@@ -33,6 +33,12 @@
 #define FILINP  1   /* indicates command input coming from a file */
 #define PROMPT  "> "
 
+#define EMPTY_CHAR '.'
+#define SCALE_START_CHAR '0'
+#define SCALE_START_CHAR_2 'a'
+/* first point to start using a */
+#define SCALE_START_2 (2 << 9)
+
 typedef char *string;
 
 typedef char input_line_t[LINELEN+1];
@@ -65,6 +71,14 @@ typedef struct {
     double sum[MAXCATS];
 } category_t;
 
+typedef struct {
+    int buckets[GRAPHROWS][GRAPHCOLS];
+    double row_start;
+    double row_step;
+    double column_start;
+    double column_step;
+} bucket_2d_t;
+
 double _get_by_func(csv_t *csv, int column_number, double (*get)(double , double));
 double double_max(double a, double b);
 double double_min(double a, double b);
@@ -87,5 +101,12 @@ double _calculate_taua_correlation(csv_t *csv,
         int column_number_1, int column_number_2);
 void _print_taua_correlation(csv_t *csv, int column_number_1,
         int column_number_2, double taua_correlation);
+void _init_bucket_2d_t(csv_t *csv, bucket_2d_t *bucket,
+        int column_number_1, int column_number_2);
+void _populate_bucket_2d(csv_t *csv, bucket_2d_t *bucket,
+        int column_number_1, int column_number_2);
+void _print_bucket_2d_graph(csv_t *csv, bucket_2d_t *bucket,
+        int column_number_1, int column_number_2);
+char _decorate_value(int value);
 
 #endif

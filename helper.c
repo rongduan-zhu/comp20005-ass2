@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -41,7 +42,7 @@ double _average_csv_t(csv_t *csv, int column_number) {
 
 void _print_average_csv_t(csv_t *csv, int column_number, double average) {
     string header = csv->labs[column_number - 1];
-    printf("average %s is %.2f (over %d values)\n",
+    printf("average %s: %.2f (over %d values)\n",
         header, average, csv->nrows);
 }
 
@@ -214,4 +215,76 @@ void _print_taua_correlation(csv_t *csv, int column_number_1,
 
     printf("tau coefficient between %s and %s = %3.2f\n",
         label_1, label_2, taua_correlation);
+}
+
+void _init_bucket_2d_t(csv_t *csv, bucket_2d_t *bucket,
+        int column_number_1, int column_number_2) {
+    int i, j;
+    double min = _get_by_func(csv, column_number_1, double_min);
+    double max = _get_by_func(csv, column_number_1, double_max);
+    double step = (max + EPSILON - (min - EPSILON)) / GRAPHROWS;
+    bucket->row_start = min - EPSILON;
+    bucket->row_step = step;
+
+    min = _get_by_func(csv, column_number_2, double_min);
+    max = _get_by_func(csv, column_number_2, double_max);
+    step = (max + EPSILON - (min - EPSILON)) / GRAPHCOLS;
+    bucket->column_start = min - EPSILON;
+    bucket->column_step = step;
+
+    for (i = 0; i < GRAPHROWS; ++i) {
+        for (j = 0; j < GRAPHCOLS; ++j) {
+            bucket->buckets[i][j] = 0;
+        }
+    }
+}
+
+void _populate_bucket_2d(csv_t *csv, bucket_2d_t *bucket,
+        int column_number_1, int column_number_2) {
+    int i;
+    int row_bucket_index, column_bucket_index;
+    int column_index_1 = column_number_1 - 1;
+    int column_index_2 = column_number_2 - 1;
+
+    for (i = 0; i < csv->nrows; ++i) {
+        row_bucket_index = _calculate_bucket_index(csv->vals[i][column_index_1],
+            bucket->row_start, bucket->row_step);
+        column_bucket_index = _calculate_bucket_index(csv->vals[i][column_index_2],
+            bucket->column_start, bucket->column_step);
+
+        ++(bucket->buckets[row_bucket_index][column_bucket_index]);
+    }
+}
+
+void _print_bucket_2d_graph(csv_t *csv, bucket_2d_t *bucket,
+        int column_number_1, int column_number_2) {
+    int i, j;
+    string vertical_label = csv->labs[column_number_1 - 1];
+    string horizontal_label = csv->labs[column_number_2 - 1];
+
+    printf("plot of %s (vertical) and %s (horizontal)\n",
+        vertical_label, horizontal_label);
+
+    for (i = GRAPHROWS - 1; i >= 0; --i) {
+        printf("%6.2f--%6.2f: ", bucket->row_start + i * bucket->row_step,
+            bucket->row_start + (i + 1) * bucket->row_step);
+        for (j = 0; j < GRAPHCOLS; ++j) {
+            printf("%c", _decorate_value(bucket->buckets[i][j]));
+        }
+        printf("\n");
+    }
+}
+
+char _decorate_value(int value) {
+    int scaled;
+    if (!value) {
+        return EMPTY_CHAR;
+    }
+
+    scaled = log(value) / log(2);
+
+    if (scaled < SCALE_START_2) {
+        return value + SCALE_START_CHAR;
+    }
+    return value + SCALE_START_CHAR_2;
 }
