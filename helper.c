@@ -288,9 +288,8 @@ char decorate_value(int value) {
     }
 
     scaled = log(value) / log(2);
-
     if (scaled < SCALE_START_2) {
-        return value + SCALE_START_CHAR;
+        return scaled + SCALE_START_CHAR;
     }
-    return value + SCALE_START_CHAR_2;
+    return scaled + SCALE_START_CHAR_2;
 }

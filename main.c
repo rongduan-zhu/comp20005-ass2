@@ -125,7 +125,7 @@ read_csv_file(char *fname, csv_t *D) {
         i = 0;
         line[i++] = chr;
         ncommas = (chr==COMMA) ;
-        while (((chr=getc(fp))!=EOF) && (chr!='\n')) {
+        while (((chr=getc(fp))!=EOF) && (chr!='\n' && chr!='\r')) {
             line[i++] = chr;
             ncommas += (chr==COMMA) ;
         }
