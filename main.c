@@ -366,8 +366,8 @@ void
 do_averge(csv_t *D, int col) {
     assert(col <= D->ncols && col > 0);
 
-    double average = _average_csv_t(D, col);
-    _print_average_csv_t(D, col, average);
+    double average = average_csv_t(D, col);
+    print_average_csv_t(D, col, average);
 }
 
 /****************************************************************/
@@ -377,9 +377,9 @@ do_averge(csv_t *D, int col) {
 void
 do_graph1(csv_t *D, int col) {
     bucket_t bucket;
-    _init_bucket_t(D, &bucket, col);
-    _populate_bucket(D, &bucket, col);
-    _print_bucket_graph(D, &bucket, col);
+    init_bucket_t(D, &bucket, col);
+    populate_bucket(D, &bucket, col);
+    print_bucket_graph(D, &bucket, col);
 }
 
 /****************************************************************/
@@ -389,9 +389,9 @@ do_graph1(csv_t *D, int col) {
 void
 do_catavg(csv_t *D, int cat, int col) {
     category_t categories;
-    _init_category_t(D, &categories, cat);
-    _sum_categories_category_t(D, &categories, cat, col);
-    _print_category_average(D, &categories, cat, col);
+    init_category_t(D, &categories, cat);
+    sum_categories_category_t(D, &categories, cat, col);
+    print_category_average(D, &categories, cat, col);
 }
 
 /****************************************************************/
@@ -401,8 +401,8 @@ do_catavg(csv_t *D, int cat, int col) {
 */
 void
 do_kndall(csv_t *D, int col1, int col2) {
-    double taua_coefficient = _calculate_taua_correlation(D, col1, col2);
-    _print_taua_correlation(D, col1, col2, taua_coefficient);
+    double taua_coefficient = calculate_taua_correlation(D, col1, col2);
+    print_taua_correlation(D, col1, col2, taua_coefficient);
 }
 
 /****************************************************************/
@@ -413,7 +413,7 @@ do_kndall(csv_t *D, int col1, int col2) {
 void
 do_graph2(csv_t *D, int col1, int col2) {
     bucket_2d_t bucket;
-    _init_bucket_2d_t(D, &bucket, col1, col2);
-    _populate_bucket_2d(D, &bucket, col1, col2);
-    _print_bucket_2d_graph(D, &bucket, col1, col2);
+    init_bucket_2d_t(D, &bucket, col1, col2);
+    populate_bucket_2d(D, &bucket, col1, col2);
+    print_bucket_2d_graph(D, &bucket, col1, col2);
 }

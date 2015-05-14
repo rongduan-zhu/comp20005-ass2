@@ -79,34 +79,34 @@ typedef struct {
     double column_step;
 } bucket_2d_t;
 
-double _get_by_func(csv_t *csv, int column_number, double (*get)(double , double));
+double get_by_func(csv_t *csv, int column_number, double (*get)(double , double));
 double double_max(double a, double b);
 double double_min(double a, double b);
 int int_max(int a, int b);
-double _average_csv_t(csv_t *csv, int column_number);
-void _print_average_csv_t(csv_t *csv, int column_number, double average);
-void _init_bucket_t(csv_t *csv, bucket_t *bucket, int column_number);
-int _calculate_bucket_index(double value, double min, double step);
-void _populate_bucket(csv_t *csv, bucket_t *bucket, int column_number);
-void _print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number);
-void _init_category_t(csv_t *csv, category_t *categories, int category_column);
+double average_csv_t(csv_t *csv, int column_number);
+void print_average_csv_t(csv_t *csv, int column_number, double average);
+void init_bucket_t(csv_t *csv, bucket_t *bucket, int column_number);
+int calculate_bucket_index(double value, double min, double step);
+void populate_bucket(csv_t *csv, bucket_t *bucket, int column_number);
+void print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number);
+void init_category_t(csv_t *csv, category_t *categories, int category_column);
 int double_compare(const void *a, const void *b);
-void _insert_category_category_t(category_t *categories, double category);
-int _category_index_category_t(category_t *categories, double category);
-void _sum_categories_category_t(csv_t *csv, category_t *categories,
+void insert_category_category_t(category_t *categories, double category);
+int category_index_category_t(category_t *categories, double category);
+void sum_categories_category_t(csv_t *csv, category_t *categories,
         int category_column, int value_column);
-void _print_category_average(csv_t *csv, category_t *categories,
+void print_category_average(csv_t *csv, category_t *categories,
         int category_column, int value_column);
-double _calculate_taua_correlation(csv_t *csv,
+double calculate_taua_correlation(csv_t *csv,
         int column_number_1, int column_number_2);
-void _print_taua_correlation(csv_t *csv, int column_number_1,
+void print_taua_correlation(csv_t *csv, int column_number_1,
         int column_number_2, double taua_correlation);
-void _init_bucket_2d_t(csv_t *csv, bucket_2d_t *bucket,
+void init_bucket_2d_t(csv_t *csv, bucket_2d_t *bucket,
         int column_number_1, int column_number_2);
-void _populate_bucket_2d(csv_t *csv, bucket_2d_t *bucket,
+void populate_bucket_2d(csv_t *csv, bucket_2d_t *bucket,
         int column_number_1, int column_number_2);
-void _print_bucket_2d_graph(csv_t *csv, bucket_2d_t *bucket,
+void print_bucket_2d_graph(csv_t *csv, bucket_2d_t *bucket,
         int column_number_1, int column_number_2);
-char _decorate_value(int value);
+char decorate_value(int value);
 
 #endif
