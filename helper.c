@@ -126,7 +126,13 @@ void init_category_t(csv_t *csv, category_t *categories,
 }
 
 int double_compare(const void *a, const void *b) {
-    return (*(double *)a - *(double *)b);
+    double answer = (*(double *)a - *(double *)b);
+    if (answer < 0) {
+        return -1;
+    } else if (answer > 0) {
+        return 1;
+    }
+    return 0;
 }
 
 void insert_category_category_t(category_t *categories, double category) {
