@@ -4,7 +4,7 @@ import sys
 
 from random import randint
 
-MAX_INT = 100
+MAX_INT = 1
 MIN_INT = 1
 
 def generate_headers(num_of_columns):
@@ -12,7 +12,7 @@ def generate_headers(num_of_columns):
 
 def generate_rows(num_of_rows, num_of_columns):
     for i in xrange(0, num_of_rows):
-        row_data = ",".join(map(lambda _: str(randint(1, 100 + 1)), xrange(0, num_of_columns)))
+        row_data = ",".join(map(lambda _: str(randint(MIN_INT, MAX_INT)), xrange(0, num_of_columns)))
         print row_data
 
 def err(reason):

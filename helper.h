@@ -34,10 +34,10 @@
 #define PROMPT  "> "
 
 #define EMPTY_CHAR '.'
-#define SCALE_START_CHAR '0'
+#define SCALE_START_CHAR '1'
 #define SCALE_START_CHAR_2 'a'
 /* first point to start using a */
-#define SCALE_START_2 (2 << 9)
+#define SCALE_START_2 9
 
 typedef char *string;
 
