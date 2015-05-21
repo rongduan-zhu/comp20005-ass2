@@ -287,7 +287,7 @@ char decorate_value(int value) {
         return EMPTY_CHAR;
     }
 
-    scaled = (int) (log(value) / log(2)) + 1;
+    scaled = (int) (log(value + 1) / log(2));
     if (scaled < SCALE_START_2) {
         return scaled + SCALE_START_CHAR;
     }

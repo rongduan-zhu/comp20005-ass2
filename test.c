@@ -18,6 +18,14 @@ int main(int argc, char *argv[]) {
     assert(decorate_value(5) == '2');
     printf("Output: %c, Expected: %c\n", decorate_value(6), '2');
     assert(decorate_value(6) == '2');
+    printf("Output: %c, Expected: %c\n", decorate_value(7), '3');
+    assert(decorate_value(7) == '3');
+    printf("Output: %c, Expected: %c\n", decorate_value(14), '3');
+    assert(decorate_value(14) == '3');
+    printf("Output: %c, Expected: %c\n", decorate_value(15), '4');
+    assert(decorate_value(15) == '4');
+    printf("Output: %c, Expected: %c\n", decorate_value(30), '4');
+    assert(decorate_value(30) == '4');
     printf("Output: %c, Expected: %c\n", decorate_value(256), '8');
     assert(decorate_value(256) == '8');
     printf("Output: %c, Expected: %c\n", decorate_value(511), '9');
