@@ -97,7 +97,7 @@ void print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number) {
         printf("%6.2f--%6.2f [%3d]:", bucket->start + i * bucket->step,
             bucket->start + (i + 1) * bucket->step, bucket->buckets[i]);
 
-        for (j = 0; j < (int) round((double) bucket->buckets[i] / scale); ++j) {
+        for (j = 0; j < (int) ceil((double) bucket->buckets[i] / scale); ++j) {
             printf("*");
         }
         printf("\n");
