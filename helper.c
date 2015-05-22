@@ -148,7 +148,8 @@ int category_index_category_t(category_t *categories, double category) {
     int i;
 
     for (i = 0; i < categories->number_of_categories; ++i) {
-        if (categories->categories[i] == category) {
+        if (-EPSILON <= categories->categories[i] - category &&
+                categories->categories[i] - category <= EPSILON) {
             return i;
         }
     }
