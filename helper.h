@@ -1,3 +1,7 @@
+/*
+    Author: Rongduan Zhu (584 169)
+*/
+
 #ifndef __HELPER_H__
 #define __HELPER_H__
 

@@ -4,6 +4,13 @@
 
    Modifications by Rongduan Zhu (rz), May 2015
    Github: github.com/rongduan-zhu
+
+   Purpose: The program reads and processes a csv file. It supports commands to
+   list the column headings, dump the data, calculates the average of a column,
+   graph a column, plot a 2d correlation graph, and computes the Kendall's tau
+   correlation.
+
+   programming is fun
  */
 
 #include <stdio.h>
