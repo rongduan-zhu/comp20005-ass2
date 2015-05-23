@@ -127,9 +127,9 @@ void init_category_t(csv_t *csv, category_t *categories,
 
 int double_compare(const void *a, const void *b) {
     double answer = (*(double *)a - *(double *)b);
-    if (answer < 0) {
+    if (answer < -EPSILON) {
         return -1;
-    } else if (answer > 0) {
+    } else if (answer > EPSILON) {
         return 1;
     }
     return 0;
@@ -203,9 +203,9 @@ double calculate_taua_correlation(csv_t *csv,
             diff1 = csv->vals[i][column_index_1] - csv->vals[j][column_index_1];
             diff2 = csv->vals[i][column_index_2] - csv->vals[j][column_index_2];
 
-            if ((diff1 < 0 && diff2 < 0) || (diff1 > 0 && diff2 > 0)) {
+            if ((diff1 < -EPSILON && diff2 < -EPSILON) || (diff1 > EPSILON && diff2 > EPSILON)) {
                 ++concordant_count;
-            } else if ((diff1 > 0 && diff2 < 0) || (diff1 < 0 && diff2 > 0)) {
+            } else if ((diff1 > EPSILON && diff2 < -EPSILON) || (diff1 < -EPSILON && diff2 > EPSILON)) {
                 ++discordant_count;
             }
         }
