@@ -5,7 +5,8 @@
 
 #include "helper.h"
 
-double get_by_func(csv_t *csv, int column_number, double (*get)(double , double)) {
+double get_by_func(csv_t *csv, int column_number,
+        double (*get)(double , double)) {
     int column_index = column_number - 1;
     double selected = csv->vals[0][column_index];
     int i;
@@ -74,7 +75,8 @@ void populate_bucket(csv_t *csv, bucket_t *bucket, int column_number) {
         bucket_index = calculate_bucket_index(csv->vals[i][column_index],
             bucket->start, bucket->step);
         ++(bucket->buckets[bucket_index]);
-        bucket->max_bucket = int_max(bucket->max_bucket, bucket->buckets[bucket_index]);
+        bucket->max_bucket = int_max(bucket->max_bucket,
+            bucket->buckets[bucket_index]);
     }
 }
 
@@ -84,11 +86,11 @@ void print_bucket_graph(csv_t *csv, bucket_t *bucket, int column_number) {
     string header = csv->labs[column_number - 1];
 
     /* Second part of the addition deals with inexact division. For example
-       when 60 / 60, it equals to 1, the second part of the equation will evaluate
-       to 0, which gives a scale of 1 and its the desired scaling. But say when
-       its 60 + x, where 0 < x < 60, then we do want to scale up. This time the
-       second part of the addition equates to 1. So the scale will be 1 + 1 which
-       is 2, the desired scale. */
+       when 60 / 60, it equals to 1, the second part of the equation will
+       evaluate to 0, which gives a scale of 1 and its the desired scaling.
+       But say when its 60 + x, where 0 < x < 60, then we do want to scale up.
+       This time the second part of the addition equates to 1. So the scale
+       will be 1 + 1 which is 2, the desired scale. */
     scale = bucket->max_bucket / GRAPHCOLS +
         (bucket->max_bucket % GRAPHCOLS ? 1 : 0);
 
@@ -203,9 +205,11 @@ double calculate_taua_correlation(csv_t *csv,
             diff1 = csv->vals[i][column_index_1] - csv->vals[j][column_index_1];
             diff2 = csv->vals[i][column_index_2] - csv->vals[j][column_index_2];
 
-            if ((diff1 < -EPSILON && diff2 < -EPSILON) || (diff1 > EPSILON && diff2 > EPSILON)) {
+            if ((diff1 < -EPSILON && diff2 < -EPSILON) ||
+                    (diff1 > EPSILON && diff2 > EPSILON)) {
                 ++concordant_count;
-            } else if ((diff1 > EPSILON && diff2 < -EPSILON) || (diff1 < -EPSILON && diff2 > EPSILON)) {
+            } else if ((diff1 > EPSILON && diff2 < -EPSILON) ||
+                    (diff1 < -EPSILON && diff2 > EPSILON)) {
                 ++discordant_count;
             }
         }
@@ -256,8 +260,11 @@ void populate_bucket_2d(csv_t *csv, bucket_2d_t *bucket,
     for (i = 0; i < csv->nrows; ++i) {
         row_bucket_index = calculate_bucket_index(csv->vals[i][column_index_1],
             bucket->row_start, bucket->row_step);
-        column_bucket_index = calculate_bucket_index(csv->vals[i][column_index_2],
-            bucket->column_start, bucket->column_step);
+        column_bucket_index = calculate_bucket_index(
+            csv->vals[i][column_index_2],
+            bucket->column_start,
+            bucket->column_step
+        );
 
         ++(bucket->buckets[row_bucket_index][column_bucket_index]);
     }
