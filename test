@@ -1,0 +1,14 @@
+set -e
+
+make
+make test
+
+./test.exe
+
+./main.exe test0.csv test0.txt > test0-out-me.txt
+./main.exe rbo-data.csv rbo-data.txt > rbo-my-out.txt
+
+set +e
+
+diff test0-out-me.txt test0-out.txt
+diff rbo-my-out.txt rbo-data-out.txt
